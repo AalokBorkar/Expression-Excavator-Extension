@@ -1,0 +1,22 @@
+    {
+      "name": "Word Finder",
+      "version": "1.0",
+      "description": "Searches the current web page for user inputted words and highlights in user specified colors",
+      "manifest_version": 2, 
+      "browser_action":{
+       	"default_icon": "wf_icon.png",
+        "default_popup": "popup.html"
+      },
+      "background":{
+        "scripts":["popup.js"],
+        "persistent":false
+      },
+      "permissions":[
+      	"tabs", "<all_urls>"
+      ],
+       "content_scripts": [{
+       	 "matches": ["<all_urls>"],
+    	   "css": ["style.css"],
+         "js": ["jquery-3.3.1.js", "mark.min.js", "content.js"]
+       }]
+    }

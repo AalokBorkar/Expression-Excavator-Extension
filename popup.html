@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Changa:700|Roboto+Condensed:700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+	    <script type = "text/javascript" src="jquery-3.3.1.js"></script>
+	    <script src="mark.min.js"></script>
+	    <script type = "text/javascript" src="popup.js"></script>
+		<link rel="stylesheet" href="style.css" media="screen">
+
+		<title>Word Finder</title>
+		<meta name="description" content="Word Finder Chrome Extension">
+		<meta name="author" content="Aalok Borkar">
+	</head>
+
+	<body>		
+		<div class = "input">
+			<div class = "word">
+				Word <input type = "text" id = 'input-word' placeholder= "Jim Halpert"></input>
+			</div>
+
+			<div class = "color-palette">
+				<!-- on click: clear text input, add color, append search array / display array -->
+				<button class = "color-element" id = "rgb(255,0,0)"></button>
+				<button class = "color-element" id = "rgb(255,165,0)"></button>
+				<button class = "color-element" id = "rgb(255,255,0)"></button>
+				<button class = "color-element" id = "rgb(0,128,0)"></button>
+				<button class = "color-element" id = "rgb(65,105,225)"></button>
+				<button class = "color-element" id = "rgb(128,0,128)"></button>
+				<button class = "color-element" id = "rgb(255,105,180)"></button> 				
+			</div>
+		</div>
+		
+		<div class = "display">
+			<p> Words to Search For</p>
+			<div class = "display-array">
+			</div>
+		</div>
+
+		<button class = "search">Search</button>
+
+	</body>
+
+</html>
