@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 			$(newWord).attr('id', placementId); //set this new elements unique ID for delection purposes aalokb
 
-			$('.display-array').append(newWord); //append the child to the DOM
+			$('.display-array').append(newWord); //append the child to the DOM (display-array container)
 
 			addWord(userInput, colorId.toString()); //add the word to the search list - increment placementId for future words
 			placementId ++;
@@ -45,7 +45,7 @@ $(document).ready(function() {
 		  		var activeTab = tabs[0];
 
 		  		var jsonSearchList = JSON.stringify(searchList);
-			chrome.tabs.sendMessage(activeTab.id, {message: "start-search", data: jsonSearchList});
+				chrome.tabs.sendMessage(activeTab.id, {message: "start-search", data: jsonSearchList});
 			});
 
 		}
@@ -76,24 +76,29 @@ $(document).ready(function() {
 	});
 
 
-// == S E A R C H I N G    F O R    W O R D S   
-	$('.search').click(function(){ //when the search button is clicked
-		//message content.js to innit the search and begin highlighting
-		console.log(searchList);
+// == C L E A R   A L L   W O R D S   T O   H I G H L I G H T
+	$('.clearAll').click(function(){ //when the search button is clicked
+		//clear all highlights from the screen
 		chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
 			var aa;
 	  		var activeTab = tabs[0];
-
-	  		var jsonSearchList = JSON.stringify(searchList);
-			chrome.tabs.sendMessage(activeTab.id, {message: "start-search", data: jsonSearchList});
+	  		//alert(send_id);
+			chrome.tabs.sendMessage(activeTab.id, {message: "clear"});
 		});
+
+		//clear all the tiles from the popup
+			$(".search-word").remove();
+
+
+		//clear the array
+		searchList = [];
 	});
 
 
 // == H O V E R    O V E R    W O R D - S E A R C H    T I L E   
-	$('.search-word').mouseover(function(){
-		null;
+	/*$('.search-word').mouseover(function(){
+		$(this).css('opacity', '0.1');
 
-	});
+	});*/
 
 });

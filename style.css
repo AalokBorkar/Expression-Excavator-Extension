@@ -1,6 +1,6 @@
-button, a{
+/*button, a{
   outline: none; // this one
-}
+}*/
 
 
 .input-word{
@@ -104,40 +104,51 @@ button:hover{
 
 
 /*////////////////////////////////////*/
+
 .display p{
 	position: relative;
 	top: 5px;
 }
 
-.display-array{
-	border-radius: 5px;
-	width: 300px;
-	height: 50px;
+
+.display-array{ /*container holding all of the search-word tiles*/
+	width: 245px;
 	position: relative;
-	top: 15px;
+	top: 3px;
+	display: flex;
+	flex-wrap: wrap;
+	/*display: inline-grid;*/
+	/*grid-template-columns: repeat( auto-fit, minmax(50px, 1fr) );*/
 }
 	.search-word{
 		font-style: bold;
 		opacity: .8;
 		color: black;
 		border-radius: 5px;
-		margin: 1%;
-		padding: 15px;
+		margin: 2%;
+		padding: 12px;
+		padding-bottom: 9px;
+		padding-top: 9px;
+		display: inline-block;
+ 		width: auto;
+ 		float: left;
 	}
 		.search-word:hover{
 			cursor: pointer;
 		}
 
-.search{
+
+.clearAll{
 	cursor: pointer;
 	background-color: rgba(220,220,220, .7);
-	font-size: 15px;
-	height: 39px;
+	font-size: 12px;
+	height: 30px;
 	border-radius: 2px;
 	border: 2px solid rgba(220,220,220, 1);;
 	font-family: 'Roboto Slab', serif;
 	position: relative;
-	bottom: -15px;
+	bottom: -12px;
+	margin-bottom: 3px;
 }
 
 .delete{
@@ -145,5 +156,5 @@ button:hover{
 	font-size: 12px;
 	position: relative;
 	bottom: 36.5%;
-	left: 3.7%;
+	left: 16.7%;
 }

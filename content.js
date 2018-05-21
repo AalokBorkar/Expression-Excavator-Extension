@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-		if( request.message === "start-search" ) { //if a search was requested
+		if( request.message === "start-search" ) { //search for the words the user has inputted in the searchList: user will think its only updating the search to include latest word
 				searchList = JSON.parse(request.data);
 				var context = new Mark(document.querySelector('*'));
 				context.unmark();
@@ -28,7 +28,7 @@ $(document).ready(function() {
 				}
         }
 
-        else if( request.message === "delete" ) {
+        else if( request.message === "delete" ) { //delete specific highlights based off of user click
 			//Clear the page of any highlights with the given id (request.id) which is the id from the corresponding tile that was just removed
 			var classSearch = request.id;
 			var unHighlightList = document.getElementsByClassName(classSearch);
@@ -42,6 +42,11 @@ $(document).ready(function() {
 				$(this).attr('class', 'NA'); //the span holding these will be deleted anyways upon re-searching (unmark)
 			});
 
+		}
+
+		else if( request.message === "clear" ){ //clear all highlights
+			var context = new Mark(document.querySelector('*'));
+			context.unmark();
 		}
 
 
