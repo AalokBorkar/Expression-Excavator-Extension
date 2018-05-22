@@ -1,10 +1,10 @@
     {
-      "name": "Word Finder",
+      "name": "Expression Excavator",
       "version": "1.0",
-      "description": "Searches the current web page for user inputted words and highlights in user specified colors",
+      "description": "Locate and highlight multiple words on a page all at once!",
       "manifest_version": 2, 
       "browser_action":{
-       	"default_icon": "wf_icon.png",
+       	"default_icon": "excavator.png",
         "default_popup": "popup.html"
       },
       "background":{

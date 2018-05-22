@@ -2,14 +2,12 @@
   outline: none; // this one
 }*/
 
-
 .input-word{
 	color: black;
 	font-family: Roboto;
 	padding-left: 3px;
 }
 
-/*not working*/
 :placeholder-shown{
 	font-style: italic;
 }
@@ -125,7 +123,7 @@ button:hover{
 		opacity: .8;
 		color: black;
 		border-radius: 5px;
-		margin: 2%;
+		margin: 1%;
 		padding: 12px;
 		padding-bottom: 9px;
 		padding-top: 9px;
@@ -155,6 +153,6 @@ button:hover{
 	color: rgba(0,0,0, .7);
 	font-size: 12px;
 	position: relative;
-	bottom: 36.5%;
-	left: 16.7%;
+	bottom: 10.9px;
+	left: 7px;
 }
