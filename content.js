@@ -60,6 +60,11 @@ $(document).ready(function() {
 		else if( request.message === "clear" ){ //clear all highlights
 			var context = new Mark(document.querySelector('*'));
 			context.unmark();
+			searchList = [];
+			chrome.storage.local.set({'localSearchList': JSON.stringify(searchList)}, function(){
+				console.log('local storage searchList updated');
+			});
+
 		}
 
 		else if( request.message === "fetch-local-storage" ){ //popup is reopening and fetching data cached in local storage
