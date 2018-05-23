@@ -5,16 +5,15 @@ $(document).ready(function() {
 	});
 
 
-
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 		if( request.message === "start-search" ) { //search for the words the user has inputted in the searchList: user will think its only updating the search to include latest word
 				searchList = JSON.parse(request.data);
 				chrome.storage.local.set({'localSearchList': JSON.stringify(searchList)}, function(){
-					console.log('local storage SearchList updated');
+					console.log('local storage searchList updated');
 				});
 				chrome.storage.local.get('localSearchList', function (query) {
-					console.log(query.localSearchList);
+					console.log('The current local storage searchList copy: ' + query.localSearchList);
 				});
 
 				var context = new Mark(document.querySelector('*'));
@@ -60,22 +59,18 @@ $(document).ready(function() {
 		}
 
 		else if( request.message === "fetch-local-storage" ){ //popup is reopening and fetching data cached in local storage
-			console.log('Booting up popup....');
+
+			console.log('Booting up popup...');
 			var responseData;
-			var flag =0;
-			chrome.storage.local.get('localSearchList', function(query){
-				responseData = query.localSearchList;
-				flag = 1;
-			});	//fetch the local storage data 
-			//while(!flag){//just wait until flag is set to 1 (when chrome storage method above is done executing)...
-				if(flag){ //shows that asynchonous call has finished so below code-> doesnt send undefined resonseData
-					console.log("The data being sent to popup (via content.js): " + JSON.stringify(responseData));
-					sendResponse({message: "local-storage-data", data: JSON.stringify(responseData)}); //NEED TO KEEP THIS IN THE SCOPE OF THE OVERALL RUNTIME ADDlISTENER ABOVE (CANT PUT INTO THE CALLBACK OF CHROME LOCAL STORAGE METHOD)
-				}
-			//}
+			chrome.storage.local.get('localSearchList', function(query){ //returns string of the data
+        		responseData = query.localSearchList;
+      			console.log('The data being sent over via the content.js pipeline: ' + typeof responseData + "  ===  " + responseData);
+			    sendResponse({message: "local-storage-data", data: responseData}); // <- pass responseData to then()
+    		}); //fetch the local storage data 
 
 		}
 
+		return true;
 	});
 
 });
