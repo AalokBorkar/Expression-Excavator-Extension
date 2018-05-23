@@ -1,11 +1,22 @@
 $(document).ready(function() {
+	var searchList = []; //content side search list
+	chrome.storage.local.set({'localSearchList': JSON.stringify(searchList)}, function(){ //init the localsearch list
+		console.log('searchList created');
+	});
 
-	var searchList; //content side search list
+
 
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 		if( request.message === "start-search" ) { //search for the words the user has inputted in the searchList: user will think its only updating the search to include latest word
 				searchList = JSON.parse(request.data);
+				chrome.storage.local.set({'localSearchList': JSON.stringify(searchList)}, function(){
+					console.log('local storage SearchList updated');
+				});
+				chrome.storage.local.get('localSearchList', function (query) {
+					console.log(query.localSearchList);
+				});
+
 				var context = new Mark(document.querySelector('*'));
 				context.unmark();
 
@@ -41,7 +52,6 @@ $(document).ready(function() {
 				$(this).attr('id', 'NA'); //reset - disconnect the wrapped word from the button associated with it
 				$(this).attr('class', 'NA'); //the span holding these will be deleted anyways upon re-searching (unmark)
 			});
-
 		}
 
 		else if( request.message === "clear" ){ //clear all highlights
@@ -49,8 +59,23 @@ $(document).ready(function() {
 			context.unmark();
 		}
 
+		else if( request.message === "fetch-local-storage" ){ //popup is reopening and fetching data cached in local storage
+			console.log('Booting up popup....');
+			var responseData;
+			var flag =0;
+			chrome.storage.local.get('localSearchList', function(query){
+				responseData = query.localSearchList;
+				flag = 1;
+			});	//fetch the local storage data 
+			//while(!flag){//just wait until flag is set to 1 (when chrome storage method above is done executing)...
+				if(flag){ //shows that asynchonous call has finished so below code-> doesnt send undefined resonseData
+					console.log("The data being sent to popup (via content.js): " + JSON.stringify(responseData));
+					sendResponse({message: "local-storage-data", data: JSON.stringify(responseData)}); //NEED TO KEEP THIS IN THE SCOPE OF THE OVERALL RUNTIME ADDlISTENER ABOVE (CANT PUT INTO THE CALLBACK OF CHROME LOCAL STORAGE METHOD)
+				}
+			//}
+
+		}
 
 	});
-
 
 });

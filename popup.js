@@ -2,6 +2,25 @@ $(document).ready(function() {
 	var placementId = 0;
 	var searchList = [];
 
+
+//initial bootup == if there is local data: retrieve from local storage
+	function bootup(){
+		chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+			var activeTab = tabs[0];
+			chrome.tabs.sendMessage(activeTab.id, {message: "fetch-local-storage"}, function(response){ //callback function upon recieving message from content.js 
+				if(response.message === "local-storage-data"){ //initialize our searchList with what he have in local storage
+					console.log('Reading the data from local storage (via content.js pipeline)...');
+					console.log(response.data);
+					//searchList = localData;           //assign the popup's searchList to be the last archived data from local storage (upon first bootup this will be blank / the same as initializing)
+				}// NOTE: content.js does not need to get an updated copy of this searchList b/c it will just auto update (replace) itself with popup's searchList upon searching for words 
+
+			});
+		});
+
+	}
+	bootup(); //do this once at the start
+
+
 // == S E A R C H I N G    T O    A D D    W O R D S    T O    S E A R C H   L I S T
 	function addWord(userWord, userColor){ //append new word 
 		var wordAndColorPair = {
