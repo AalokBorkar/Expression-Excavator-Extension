@@ -4,7 +4,6 @@ $(document).ready(function() {
 		console.log('searchList created');
 	});
 
-
 	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 		if( request.message === "start-search" ) { //search for the words the user has inputted in the searchList: user will think its only updating the search to include latest word
@@ -50,6 +49,11 @@ $(document).ready(function() {
 				console.log('unhighlighting words...');
 				$(this).attr('id', 'NA'); //reset - disconnect the wrapped word from the button associated with it
 				$(this).attr('class', 'NA'); //the span holding these will be deleted anyways upon re-searching (unmark)
+			});
+			
+			searchList = JSON.parse(request.data);
+			chrome.storage.local.set({'localSearchList': JSON.stringify(searchList)}, function(){
+				console.log('local storage searchList updated');
 			});
 		}
 

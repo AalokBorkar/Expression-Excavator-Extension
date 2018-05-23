@@ -100,7 +100,7 @@ $(document).ready(function() {
 
 			$('#input-word').val(''); //reset the input field
 
-			chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+			chrome.tabs.query({currentWindow: true, active: true}, function (tabs){ //actually initiate the search to rehighlight all the words
 				var aa;
 		  		var activeTab = tabs[0];
 
@@ -128,8 +128,8 @@ $(document).ready(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
 			var aa;
 	  		var activeTab = tabs[0];
-	  		//alert(send_id);
-			chrome.tabs.sendMessage(activeTab.id, {message: "delete", id: send_id});
+	  		var jsonSearchList = JSON.stringify(searchList);
+			chrome.tabs.sendMessage(activeTab.id, {message: "delete", id: send_id, data: jsonSearchList});
 		});
 
 		$(this).remove(); //remove the actual tile
